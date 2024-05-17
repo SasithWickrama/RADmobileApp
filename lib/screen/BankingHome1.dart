@@ -170,8 +170,6 @@ class BankingHome1State extends State<BankingHome1> {
                                   ),
                                 ),
                                 onTap: () {
-                                  _apicall.buttonClick(
-                                      "HNB"); // Call API with argument "HNB"
                                   _apicall.buttonClickcap(
                                     startTime: DateTime.now(),
                                     endTime: DateTime.now(),
@@ -217,8 +215,6 @@ class BankingHome1State extends State<BankingHome1> {
                                   ),
                                 ),
                                 onTap: () {
-                                  _apicall.buttonClick(
-                                      "HNB"); // Call API with argument "HNB"
                                   _apicall.buttonClickcap(
                                     startTime: DateTime.now(),
                                     endTime: DateTime.now(),

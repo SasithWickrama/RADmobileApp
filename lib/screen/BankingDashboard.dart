@@ -33,14 +33,14 @@ class _BankingDashboardState extends State<BankingDashboard> {
   @override
   void initState() {
     super.initState();
-    selectedIndex = 0;
+    _apiCall.buttonClick("Sampath_Bank"); // Call API with argument "HNB" when the widget is initialized
   }
 
   void _onItemTapped(int index) {
     setState(() {
       selectedIndex = index;
     });
-    _apiCall.buttonClick("HNB"); // Call API with different argument
+    //_apiCall.buttonClick("HNB"); // Call API with different argument
     _apiCall.buttonClickcap(
       startTime: DateTime.now(),
       endTime: DateTime.now(),

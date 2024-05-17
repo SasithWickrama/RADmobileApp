@@ -41,14 +41,14 @@ class ApiCall {
 
       // Constructing the request body
       var requestBody = jsonEncode({
-        "StartTime": startTime.toString(),
-        "EndTime": endTime.toString(),
-        "StartDate": startDate.toString().substring(0, 10),
-        "EndDate": endDate.toString().substring(0, 10),
+        "StartTime": startTime.toIso8601String().substring(11, 19),
+        "EndTime": endTime.toIso8601String().substring(11, 19),
+        "StartDate": startDate.toIso8601String().substring(0, 10),
+        "EndDate": endDate.toIso8601String().substring(0, 10),
         "ScreenName": screenName,
         "IsFinalGoal": isFinalGoal,
         "ButtonName": buttonName,
-        "Sequence": _sequence, // Use the incremented sequence
+        "Sequence": _sequence,
         "Property1": property1,
         "Property2": property2
       });

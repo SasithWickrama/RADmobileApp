@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:free_flutter_ui_kits/screen/BankingChangePasword.dart';
+import 'package:free_flutter_ui_kits/utils/BankingContants.dart';
+import 'package:nb_utils/nb_utils.dart';
+
+import '../apicall.dart';
 import '../utils/BankingColors.dart';
-import '../utils/BankingContants.dart';
 import '../utils/BankingImages.dart';
 import '../utils/BankingStrings.dart';
 import '../utils/BankingWidget.dart';
-import 'package:nb_utils/nb_utils.dart';
-
-import 'BankingChangePasword.dart';
 import 'BankingContact.dart';
 import 'BankingLocation.dart';
 import 'BankingNews.dart';
@@ -23,6 +24,8 @@ class BankingMenu extends StatefulWidget {
 }
 
 class _BankingMenuState extends State<BankingMenu> {
+  final _apiCall = ApiCall(); // Initialize your API call instance here
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +57,7 @@ class _BankingMenuState extends State<BankingMenu> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         5.height,
-                        Text("Manish Dayma",
+                        Text("Sasith Wickramasinghe",
                             style: boldTextStyle(
                                 color: Banking_TextColorPrimary, size: 18)),
                         5.height,
@@ -170,7 +173,8 @@ class _BankingMenuState extends State<BankingMenu> {
                         .onTap(() {
                       showDialog(
                         context: context,
-                        builder: (BuildContext context) => CustomDialog(),
+                        builder: (BuildContext context) =>
+                            CustomDialog(_apiCall),
                       );
                     }),
                   ],
@@ -185,6 +189,10 @@ class _BankingMenuState extends State<BankingMenu> {
 }
 
 class CustomDialog extends StatelessWidget {
+  final ApiCall _apiCall;
+
+  CustomDialog(this._apiCall);
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -196,48 +204,59 @@ class CustomDialog extends StatelessWidget {
       child: dialogContent(context),
     );
   }
-}
 
-dialogContent(BuildContext context) {
-  return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        shape: BoxShape.rectangle,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-              color: Colors.black26,
-              blurRadius: 10.0,
-              offset: const Offset(0.0, 10.0)),
-        ],
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          16.height,
-          Text(Banking_lbl_Confirmation_for_logout,
-                  style: primaryTextStyle(size: 18))
-              .onTap(() {
-            finish(context);
-          }).paddingOnly(top: 8, bottom: 8),
-          Divider(height: 10, thickness: 1.0, color: Banking_greyColor),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Text("Cancel", style: primaryTextStyle(size: 18)).onTap(() {
-                finish(context);
-              }).paddingRight(16),
-              Container(width: 1.0, height: 40, color: Banking_greyColor)
-                  .center(),
-              Text("Logout",
-                      style: primaryTextStyle(size: 18, color: Banking_Primary))
-                  .onTap(() {
-                finish(context);
-              }).paddingLeft(16)
-            ],
-          ),
-          16.height,
-        ],
-      ));
+  dialogContent(BuildContext context) {
+    return Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black26,
+                blurRadius: 10.0,
+                offset: const Offset(0.0, 10.0)),
+          ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            16.height,
+            Text(Banking_lbl_Confirmation_for_logout,
+                    style: primaryTextStyle(size: 18))
+                .paddingOnly(top: 8, bottom: 8),
+            Divider(height: 10, thickness: 1.0, color: Banking_greyColor),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text("Cancel", style: primaryTextStyle(size: 18)).onTap(() {
+                  finish(context);
+                }).paddingRight(16),
+                Container(width: 1.0, height: 40, color: Banking_greyColor)
+                    .center(),
+                Text("Logout",
+                        style:
+                            primaryTextStyle(size: 18, color: Banking_Primary))
+                    .onTap(() {
+                  _apiCall.buttonClickcap(
+                    startTime: DateTime.now(),
+                    endTime: DateTime.now(),
+                    startDate: DateTime.now(),
+                    endDate: DateTime.now(),
+                    screenName: 'Transfer Screen',
+                    isFinalGoal: true,
+                    buttonName: 'Transfer Button',
+                    sequence: '',
+                    property1: '',
+                    property2: '',
+                  );
+                  finish(context);
+                }).paddingLeft(16)
+              ],
+            ),
+            16.height,
+          ],
+        ));
+  }
 }
